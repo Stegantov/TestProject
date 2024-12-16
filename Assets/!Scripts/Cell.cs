@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -52,7 +53,7 @@ using Random = UnityEngine.Random;
             if (isCorrect)
             {
                 PlayCorrectAnimation();
-                GameController.Instance.OnWinState();
+                StartCoroutine("Latency");
             }
             else
             {
@@ -66,6 +67,11 @@ using Random = UnityEngine.Random;
             _button.interactable = _isInteractable;
         }
 
+        private IEnumerator Latency()
+        {
+            yield return new WaitForSecondsRealtime(2f);
+            GameController.Instance.OnWinState();
+        }
         private void PlayCorrectAnimation()
         {
             _cellContent.DOKill();
